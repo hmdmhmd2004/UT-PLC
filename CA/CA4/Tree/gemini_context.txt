@@ -1,0 +1,736 @@
+========== src/main/visitor/Visitor.java ==========
+package main.visitor;
+
+import main.ast.core.*;
+import main.ast.declarations.Module;
+import main.ast.types.*;
+import main.ast.declarations.*;
+import main.ast.statements.*;
+import main.ast.expressions.*;
+import main.ast.expressions.literals.*;
+
+public abstract class Visitor<T> implements IVisitor<T> {
+    @Override
+    public T visit(Program program) { return null; }
+
+    @Override
+    public T visit(Module module) { return null; }
+
+    @Override
+    public T visit(ModuleDecl moduleDecl) { return null; }
+
+    @Override
+    public T visit(Struct struct) { return null; }
+
+    @Override
+    public T visit(StructDecl structDecl) { return null; }
+
+    @Override
+    public T visit(Method method) { return null; }
+
+    @Override
+    public T visit(MethodDecl methodDecl) { return null; }
+
+    @Override
+    public T visit(Parameter parameter) { return null; }
+
+    @Override
+    public T visit(Var var) { return null; }
+
+    @Override
+    public T visit(VarDecl varDecl) { return null; }
+
+    @Override
+    public T visit(Block block) { return null; }
+
+    @Override
+    public T visit(VarDeclStmt varDeclStmt) { return null; }
+
+    @Override
+    public T visit(AssignStmt assignStmt) { return null; }
+
+    @Override
+    public T visit(MethodCallStmt methodCallStmt) { return null; }
+
+    @Override
+    public T visit(ReturnStmt returnStmt) { return null; }
+
+    @Override
+    public T visit(IfStmt ifStmt) { return null; }
+
+    @Override
+    public T visit(ForStmt forStmt) { return null; }
+
+    @Override
+    public T visit(WhileStmt whileStmt) { return null; }
+
+    @Override
+    public T visit(BreakJump breakJump) { return null; }
+
+    @Override
+    public T visit(ContinueJump continueJump) { return null; }
+
+    @Override
+    public T visit(InputStmt inputStmt) { return null; }
+
+    @Override
+    public T visit(OutputStmt outputStmt) { return null; }
+
+    @Override
+    public T visit(MethodCall methodCall) { return null; }
+
+    @Override
+    public T visit(ConstructorCall constructorCall) { return null; }
+
+    @Override
+    public T visit(SimpleLoc simpleLoc) { return null; }
+
+    @Override
+    public T visit(MemberLoc memberLoc) { return null; }
+
+    @Override
+    public T visit(ThisLoc thisLoc) { return null; }
+
+    @Override
+    public T visit(MethodCallLoc methodCallLoc) { return null; }
+
+    @Override
+    public T visit(ParanthesisExpr paranthesisExpr) { return null; }
+
+    @Override
+    public T visit(UnaryOpExpr unaryOpExpr) { return null; }
+
+    @Override
+    public T visit(BinaryExpression binaryOpExpr) { return null; }
+
+    @Override
+    public T visit(IntLiteral intLiteral) { return null; }
+
+    @Override
+    public T visit(FloatLiteral floatLiteral) { return null; }
+
+    @Override
+    public T visit(DoubleLiteral doubleLiteral) { return null; }
+
+    @Override
+    public T visit(CharLiteral charLiteral) { return null; }
+
+    @Override
+    public T visit(BoolLiteral boolLiteral) { return null; }
+
+    @Override
+    public T visit(Identifier identifier) { return null; }
+
+    @Override
+    public T visit(PrimitiveType primitiveType) { return null; }
+
+    @Override
+    public T visit(UserDefinedType userDefinedType) { return null; }
+
+    @Override
+    public T visit(UnaryExpression unaryExpression) { return null; }
+    @Override
+    public T visit(ConstantExpression constantExpression) { return null; }
+}
+
+========== src/main/visitor/IVisitor.java ==========
+package main.visitor;
+
+import main.ast.core.*;
+import main.ast.declarations.Module;
+import main.ast.types.*;
+import main.ast.declarations.*;
+import main.ast.statements.*;
+import main.ast.expressions.*;
+import main.ast.expressions.literals.*;
+
+public interface IVisitor<T> {
+    T visit(Program program);
+
+    T visit(Module module);
+
+    T visit(ModuleDecl moduleDecl);
+
+    T visit(Struct struct);
+
+    T visit(StructDecl structDecl);
+
+    T visit(Method method);
+
+    T visit(MethodDecl methodDecl);
+
+    T visit(Parameter parameter);
+
+    T visit(Var var);
+
+    T visit(VarDecl varDecl);
+
+    T visit(Block block);
+
+    T visit(VarDeclStmt varDeclStmt);
+
+    T visit(AssignStmt assignStmt);
+
+    T visit(MethodCallStmt methodCallStmt);
+
+    T visit(ReturnStmt returnStmt);
+
+    T visit(IfStmt ifStmt);
+
+    T visit(ForStmt forStmt);
+
+    T visit(WhileStmt whileStmt);
+
+    T visit(BreakJump breakJump);
+
+    T visit(ContinueJump continueJump);
+
+    T visit(InputStmt inputStmt);
+
+    T visit(OutputStmt outputStmt);
+
+    T visit(MethodCall methodCall);
+
+    T visit(ConstructorCall constructorCall);
+
+    T visit(SimpleLoc simpleLoc);
+
+    T visit(MemberLoc memberLoc);
+
+    T visit(ThisLoc thisLoc);
+
+    T visit(MethodCallLoc methodCallLoc);
+
+    T visit(ParanthesisExpr paranthesisExpr);
+
+    T visit(UnaryOpExpr unaryOpExpr);
+
+    T visit(BinaryExpression binaryOpExpr);
+
+    T visit(IntLiteral intLiteral);
+
+    T visit(FloatLiteral floatLiteral);
+
+    T visit(DoubleLiteral doubleLiteral);
+
+    T visit(CharLiteral charLiteral);
+
+    T visit(BoolLiteral boolLiteral);
+
+    T visit(Identifier identifier);
+
+    T visit(PrimitiveType primitiveType);
+    T visit(UnaryExpression unaryExpression);
+    T visit(ConstantExpression constantExpression);
+
+
+    T visit(UserDefinedType userDefinedType);
+}
+
+========== src/main/visitor/CodeGenerator.java ==========
+package main.visitor;
+
+import main.ast.core.Program;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+
+public class CodeGenerator extends Visitor<String> {
+    private final String outputPath;
+    private FileWriter writer;
+
+    public CodeGenerator() {
+        this.outputPath = "./codeGenOutput/";
+        prepareOutputDirectory();
+    }
+
+    private void prepareOutputDirectory() {
+        File dir = new File(outputPath);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+    }
+
+
+    @Override
+    public String visit(Program program) {
+        try {
+            initializeWriter();
+            writeClassHeader();
+            writeStaticFields(program);
+            writeMainMethodHeader();
+            generateBody();
+            writeMainMethodFooter();
+            closeWriter();
+        } catch (IOException e) {}
+        return null;
+    }
+
+
+    private void initializeWriter() throws IOException {
+        writer = new FileWriter(outputPath + "Main.j");
+    }
+
+    private void writeClassHeader() throws IOException {
+        writer.write(".class public Main\n");
+        writer.write(".super java/lang/Object\n\n");
+    }
+
+    private void writeStaticFields(Program program) throws IOException {
+       // ToDo
+    }
+
+    private void writeMainMethodHeader() throws IOException {
+        writer.write(".method public static main([Ljava/lang/String;)V\n");
+        writer.write("    .limit stack 128\n");
+        writer.write("    .limit locals 128\n\n");
+    }
+
+    private void generateBody() throws IOException {
+        // ToDo : Visit Children of program
+    }
+
+    private void writeMainMethodFooter() throws IOException {
+        writer.write("\n    return\n");
+        writer.write(".end method\n");
+    }
+
+    private void closeWriter() throws IOException {
+        writer.close();
+    }
+}
+
+========== src/main/ast/declarations/MethodDecl.java ==========
+package main.ast.declarations;
+
+import main.visitor.IVisitor;
+
+public class MethodDecl extends Member {
+    private Method method;
+
+    public MethodDecl() {}
+
+    @Override
+    public <T> T accept(IVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+
+    public Method getMethod() {
+        return method;
+    }
+
+    public void setMethod(Method method) {
+        this.method = method;
+    }
+}
+
+========== src/main/ast/declarations/ModuleDecl.java ==========
+package main.ast.declarations;
+
+import main.visitor.IVisitor;
+
+public class ModuleDecl extends TopLevelDecl {
+    private Module module;
+
+    public ModuleDecl(Module module) {
+        this.module = module;
+    }
+
+    @Override
+    public <T> T accept(IVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+
+    public Module getModule() {
+        return module;
+    }
+
+    public void setModule(Module module) {
+        this.module = module;
+    }
+}
+
+========== src/main/ast/declarations/StructDecl.java ==========
+package main.ast.declarations;
+
+import main.visitor.IVisitor;
+
+public class StructDecl extends TopLevelDecl {
+    private Struct struct;
+
+    public StructDecl(Struct struct) {
+        this.struct = struct;
+    }
+
+    @Override
+    public <T> T accept(IVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+
+    public Struct getStruct() {
+        return struct;
+    }
+
+    public void setStruct(Struct struct) {
+        this.struct = struct;
+    }
+}
+
+========== src/main/ast/declarations/Parameter.java ==========
+package main.ast.declarations;
+
+import main.ast.core.Node;
+import main.ast.types.Type;
+import main.ast.types.Identifier;
+import main.visitor.IVisitor;
+
+public class Parameter extends Node {
+    private boolean isMutable;
+    private Type type;
+    private Identifier name;
+
+    public Parameter(boolean isMutable, Type type, Identifier name) {
+        this.isMutable = isMutable;
+        this.type = type;
+        this.name = name;
+    }
+
+    @Override
+    public <T> T accept(IVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+
+    public boolean getIsMutable() {
+        return isMutable;
+    }
+
+    public void setIsMutable(boolean isMutable) {
+        this.isMutable = isMutable;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Identifier getName() {
+        return name;
+    }
+
+    public void setName(Identifier name) {
+        this.name = name;
+    }
+}
+
+========== src/main/ast/statements/IfStmt.java ==========
+package main.ast.statements;
+
+import main.ast.expressions.Expression;
+import main.visitor.IVisitor;
+
+public class IfStmt extends Statement {
+    private Expression condition;
+    private Statement thenBranch;
+    private Statement elseBranch;
+
+    public IfStmt(Expression condition, Statement thenBranch) {
+        this.condition = condition;
+        this.thenBranch = thenBranch;
+    }
+
+    @Override
+    public <T> T accept(IVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+
+    public Expression getCondition() {
+        return condition;
+    }
+
+    public void setCondition(Expression condition) {
+        this.condition = condition;
+    }
+
+    public Statement getThenBranch() {
+        return thenBranch;
+    }
+
+    public void setThenBranch(Statement thenBranch) {
+        this.thenBranch = thenBranch;
+    }
+
+    public Statement getElseBranch() {
+        return elseBranch;
+    }
+
+    public void setElseBranch(Statement elseBranch) {
+        this.elseBranch = elseBranch;
+    }
+}
+
+========== src/main/ast/statements/WhileStmt.java ==========
+package main.ast.statements;
+
+import main.ast.expressions.Expression;
+import main.visitor.IVisitor;
+
+public class WhileStmt extends Statement {
+    private Expression condition;
+    private Statement body;
+
+    public WhileStmt(Expression condition, Statement body) {
+        this.condition = condition;
+        this.body = body;
+    }
+
+    @Override
+    public <T> T accept(IVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+
+    public Expression getCondition() {
+        return condition;
+    }
+
+    public void setCondition(Expression condition) {
+        this.condition = condition;
+    }
+
+    public Statement getBody() {
+        return body;
+    }
+
+    public void setBody(Statement body) {
+        this.body = body;
+    }
+}
+
+========== src/main/ast/statements/AssignStmt.java ==========
+package main.ast.statements;
+
+import main.ast.expressions.Expression;
+import main.ast.expressions.Location;
+import main.visitor.IVisitor;
+
+public class AssignStmt extends Statement {
+    private Location left;
+    private Expression right;
+
+    public AssignStmt(Location left, Expression right) {
+        this.left = left;
+        this.right = right;
+    }
+
+    @Override
+    public <T> T accept(IVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+
+    public Location getLeft() {
+        return left;
+    }
+
+    public void setLeft(Location left) {
+        this.left = left;
+    }
+
+    public Expression getRight() {
+        return right;
+    }
+
+    public void setRight(Expression right) {
+        this.right = right;
+    }
+}
+
+========== src/main/ast/expressions/BinaryExpression.java ==========
+package main.ast.expressions;
+
+import main.ast.expressions.operators.*;
+import main.visitor.IVisitor;
+
+public class BinaryExpression extends Expression {
+    private Expression leftOperand;
+    private BinaryOperator Operator;
+    private Expression rightOperand;
+
+    public BinaryExpression(Expression leftOperand, String Operator, Expression rightOperand) {
+        this.leftOperand = leftOperand;
+        this.Operator = BinaryOperator.fromString(Operator);
+        this.rightOperand = rightOperand;
+    }
+
+    public Expression getLeftOperand() {
+        return leftOperand;
+    }
+
+    public void setLeftOperand(Expression leftOperand) {
+        this.leftOperand = leftOperand;
+    }
+
+    public BinaryOperator getOperator() {
+        return Operator;
+    }
+
+    public void setOperator(BinaryOperator operator) {
+        this.Operator = operator;
+    }
+
+    public Expression getRightOperand() {
+        return rightOperand;
+    }
+
+    public void setRightOperand(Expression rightOperand) {
+        this.rightOperand = rightOperand;
+    }
+
+    @Override
+    public <T> T accept(IVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+}
+
+========== src/main/ast/expressions/UnaryExpression.java ==========
+package main.ast.expressions;
+
+import main.visitor.IVisitor;
+import main.ast.expressions.operators.*;
+
+public class UnaryExpression extends Expression{
+    public UnaryExpression(String operand, Expression expression) {
+        this.expression = expression;
+        this.operand = UnaryOperator.fromString(operand);
+    }
+
+    public void setExpression(Expression expression) {
+        this.expression = expression;
+    }
+
+    UnaryOperator operand;
+
+    public Expression getExpression() {
+        return expression;
+    }
+
+    public UnaryOperator getOperand() {
+        return operand;
+    }
+
+    public void setOperand(UnaryOperator operand) {
+        this.operand = operand;
+    }
+
+    private Expression expression;
+
+    @Override
+    public <T> T accept(IVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+}
+
+========== src/main/ast/expressions/SimpleLoc.java ==========
+package main.ast.expressions;
+
+import main.ast.types.Identifier;
+import main.visitor.IVisitor;
+
+public class SimpleLoc extends Location {
+    private Identifier id;
+
+    public SimpleLoc(Identifier id) {
+        this.id = id;
+    }
+
+    @Override
+    public <T> T accept(IVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+
+    public Identifier getId() {
+        return id;
+    }
+
+    public void setId(Identifier id) {
+        this.id = id;
+    }
+}
+
+========== src/main/ast/expressions/operators/BinaryOperator.java ==========
+package main.ast.expressions.operators;
+
+public enum BinaryOperator {
+    // Define the enum values with their string representations
+    MULTIPLICATION("*"),
+    DIVISION("/"),
+    ADDITION("+"),
+    SUBTRACTION("-"),
+    LESS_THAN("<"),
+    GREATER_THAN(">"),
+    LESS_THAN_OR_EQUAL_TO("<="),
+    GREATER_THAN_OR_EQUAL_TO(">="),
+    EQUALITY("=="),
+    INEQUALITY("!="),
+    AND("and"),
+    OR("or");
+
+    // Field to store the string representation
+    private final String symbol;
+
+    // Constructor to initialize the symbol
+    BinaryOperator(String symbol) {
+        this.symbol = symbol;
+    }
+
+    // Method to get the symbol
+    public String getSymbol() {
+        return this.symbol;
+    }
+
+    // Static method to get the enum by string symbol
+    public static BinaryOperator fromString(String symbol) {
+        for (BinaryOperator operator : BinaryOperator.values()) {
+            if (operator.getSymbol().equals(symbol)) {
+                return operator;
+            }
+        }
+        throw new IllegalArgumentException("Unknown operator: " + symbol);
+    }
+}
+
+========== src/main/ast/expressions/operators/UnaryOperator.java ==========
+package main.ast.expressions.operators;
+
+public enum UnaryOperator {
+    // Define the enum values with their string representations
+    MINUS("-"),
+    NOT("not");
+
+    // Field to store the string representation
+    private final String symbol;
+
+    // Constructor to initialize the symbol
+    UnaryOperator(String symbol) {
+        this.symbol = symbol;
+    }
+
+    // Method to get the symbol
+    public String getSymbol() {
+        return this.symbol;
+    }
+
+    // Static method to get the enum by string symbol
+    public static UnaryOperator fromString(String symbol) {
+        for (UnaryOperator operator : UnaryOperator.values()) {
+            if (operator.getSymbol().equals(symbol)) {
+                return operator;
+            }
+        }
+        throw new IllegalArgumentException("Unknown operator: " + symbol);
+    }
+}
+

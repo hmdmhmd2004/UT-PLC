@@ -1,0 +1,39 @@
+.method f(I)I
+.limit locals 4
+.limit stack 4
+
+    new A
+    dup
+    iload_1
+    iconst_1
+    iadd
+    invokespecial A/<init>(I)V
+    astore_2
+    
+    aload_2
+    iload_1
+    invokevirtual A/inc(I)I
+    istore_3
+    
+    iload_3
+    iload_1
+    if_icmple ELSE
+    
+    aload_0
+    iload_3
+    invokevirtual C/adjust(I)I
+    istore_3
+    goto END_IF
+    
+ELSE:
+    aload_2
+    iload_3
+    invokevirtual A/inc(I)I
+    istore_3
+    
+END_IF:
+    iload_3
+    ireturn
+
+.end method
+

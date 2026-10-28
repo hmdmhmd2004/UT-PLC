@@ -1,0 +1,7 @@
+module Main begin
+    public void main() begin
+        mut int a = 5;
+        a = a * 2;
+        output a;
+    end
+end

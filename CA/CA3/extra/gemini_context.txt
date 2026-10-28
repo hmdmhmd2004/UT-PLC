@@ -1,0 +1,82 @@
+========== src/main/ast/types/Type.java ==========
+package main.ast.types;
+
+import main.ast.core.Node;
+
+public abstract class Type extends Node {
+    public Type() {
+    }
+
+    public String getStr() {
+        return null;
+    }
+}
+
+========== src/main/ast/types/PrimitiveType.java ==========
+package main.ast.types;
+
+import main.visitor.IVisitor;
+
+public class PrimitiveType extends Type {
+    public enum Primitive { INT, FLOAT, DOUBLE, CHAR, BOOL, VOID }
+
+    private Primitive primitive;
+
+    public PrimitiveType(Primitive primitive) {
+        this.primitive = primitive;
+    }
+
+    @Override
+    public <T> T accept(IVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+
+    public Primitive getPrimitive() {
+        return primitive;
+    }
+
+    public void setPrimitive(Primitive primitive) {
+        this.primitive = primitive;
+    }
+
+    public String getStr() {
+        return this.primitive.toString().toLowerCase();
+    }
+}
+
+========== src/main/ast/types/UserDefinedType.java ==========
+package main.ast.types;
+
+import main.visitor.IVisitor;
+
+public class UserDefinedType extends Type {
+    private Identifier id;
+
+    public UserDefinedType(Identifier id) {
+        this.id = id;
+    }
+
+    @Override
+    public <T> T accept(IVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+
+    public Identifier getId() {
+        return id;
+    }
+
+    public void setId(Identifier id) {
+        this.id = id;
+    }
+
+    public String getStr() {
+        return id.getName();
+    }
+}
+
+========== src/main/visitor/TypeChecker.java ==========
+// Error: File not found in directory.
+
+========== src/main/visitor/ExpressionTypeChecker.java ==========
+// Error: File not found in directory.
+
